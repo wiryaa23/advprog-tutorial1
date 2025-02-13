@@ -12,6 +12,7 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
+
 public class ProductRepositoryTest {
 
     @InjectMocks
@@ -19,7 +20,6 @@ public class ProductRepositoryTest {
 
     @BeforeEach
     void setUp() {
-
     }
 
     @Test
