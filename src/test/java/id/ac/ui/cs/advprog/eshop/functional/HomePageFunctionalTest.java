@@ -12,13 +12,12 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-//import org.springframework.test.annotation.DirtiesContext;
-
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-//@DirtiesContext
+@DirtiesContext
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SeleniumJupiter.class)
 public class HomePageFunctionalTest {
@@ -42,7 +41,6 @@ public class HomePageFunctionalTest {
         String pageTitle = driver.getTitle();
         assertEquals("ADV Shop", pageTitle);
     }
-
 
     @Test
     void welcomeMessage_homePage_isCorrect(ChromeDriver driver) throws Exception {
