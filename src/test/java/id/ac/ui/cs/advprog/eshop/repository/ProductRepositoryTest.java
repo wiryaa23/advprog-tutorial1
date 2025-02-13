@@ -65,4 +65,82 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testEdit() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product newProduct = new Product();
+        newProduct.setProductId(product.getProductId());
+        newProduct.setProductName("Sampo Cap Bango");
+        newProduct.setProductQuantity(999);
+        Product editedProduct = productRepository.edit(newProduct);
+
+        assertNotNull(editedProduct);
+        assertEquals("Sampo Cap Bango", editedProduct.getProductName());
+        assertEquals(999, editedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditIfEmpty() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        product.setProductId("0");
+
+        Product editedProduct = productRepository.edit(product);
+        assertNull(editedProduct);
+    }
+
+    @Test
+    void testDelete() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        Product toBeDeletedProduct = productRepository.create(product);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertNotNull(productIterator.next());
+
+        boolean isDeleted = productRepository.delete(toBeDeletedProduct.getProductId());
+        assertTrue(isDeleted);
+        productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testDeleteIfEmpty() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+
+        boolean isDeleted = productRepository.delete(product.getProductId());
+        assertFalse(isDeleted);
+    }
+
+    @Test
+    void testFindById() {
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(111);
+        productRepository.create(product1);
+        Product findProduct1 = productRepository.findById(product1.getProductId());
+
+        Product product2 = new Product();
+        product2.setProductName("Sampo Cap Bango");
+        product2.setProductQuantity(999);
+        productRepository.create(product2);
+        Product findProduct2 = productRepository.findById(product2.getProductId());
+
+        assertNotNull(findProduct1);
+        assertNotNull(findProduct2);
+        assertEquals("Sampo Cap Bambang", findProduct1.getProductName());
+        assertEquals("Sampo Cap Bango", findProduct2.getProductName());
+    }
 }
