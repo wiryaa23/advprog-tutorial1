@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -24,7 +23,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public String createProductPost(@ModelAttribute Product product, Model model) {
+    public String createProductPost(@ModelAttribute Product product) {
         service.create(product);
         return "redirect:list";
     }
@@ -47,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping ("/delete/{id}")
-    public String deleteProduct(@PathVariable("id") String productId, Model model) {
+    public String deleteProduct(@PathVariable("id") String productId) {
         service.delete(productId);
         return "redirect:/product/list";
 
