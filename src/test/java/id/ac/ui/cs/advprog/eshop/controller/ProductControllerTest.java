@@ -128,7 +128,7 @@ public class ProductControllerTest {
         mvc.perform(get("/product/delete/" + product.getProductId()))
                 .andExpect(status().is3xxRedirection());
 
-        Mockito.when(service.findAll()).thenReturn(List.of());
+        Mockito.when(service.findAll()).thenReturn(List.of(product));
         mvc.perform(get("/product/list"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Product' List")))
