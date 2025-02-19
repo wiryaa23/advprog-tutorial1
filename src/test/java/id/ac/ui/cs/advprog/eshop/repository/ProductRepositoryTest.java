@@ -5,7 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.UUID;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.util.Iterator;
 
@@ -20,7 +24,9 @@ public class ProductRepositoryTest {
 
     @BeforeEach
     void setUp() {
+        productRepository = new ProductRepository();
     }
+
 
     @Test
     void testCreateAndFind() {
@@ -97,6 +103,22 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    void testEditWhenProductIdDoesNotExistButListNotEmpty() {
+        Product existingProduct = new Product();
+        existingProduct.setProductName("Sampo Cap Bambang");
+        existingProduct.setProductQuantity(100);
+        productRepository.create(existingProduct);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("999");
+        updatedProduct.setProductName("Sampo Cap Bango");
+        updatedProduct.setProductQuantity(999);
+
+        Product result = productRepository.edit(updatedProduct);
+        assertNull(result);
+    }
+
+    @Test
     void testDelete() {
         Product product = new Product();
         product.setProductName("Sampo Cap Bambang");
@@ -126,6 +148,33 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    void testDeleteWhenProductIdDoesNotExistButListNotEmpty() {
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductName("Sampo Cap Bango");
+        product2.setProductQuantity(50);
+        productRepository.create(product2);
+
+        // Coba hapus ID yang tidak ada (UUID acak)
+        boolean isDeleted = productRepository.delete(UUID.randomUUID().toString());
+
+        assertFalse(isDeleted);
+
+        // Pastikan produk masih ada
+        List<Product> products = new ArrayList<>();
+        productRepository.findAll().forEachRemaining(products::add);
+
+        assertEquals(2, products.size());
+        assertTrue(products.stream().anyMatch(p -> p.getProductId().equals(product1.getProductId())));
+        assertTrue(products.stream().anyMatch(p -> p.getProductId().equals(product2.getProductId())));
+    }
+
+
+    @Test
     void testFindById() {
         Product product1 = new Product();
         product1.setProductName("Sampo Cap Bambang");
@@ -143,5 +192,11 @@ public class ProductRepositoryTest {
         assertNotNull(findProduct2);
         assertEquals("Sampo Cap Bambang", findProduct1.getProductName());
         assertEquals("Sampo Cap Bango", findProduct2.getProductName());
+    }
+
+    @Test
+    void testFindByIdIfEmpty() {
+        Product findProduct1 = productRepository.findById("0");
+        assertNull(findProduct1);
     }
 }
