@@ -35,18 +35,15 @@ public class CarRepository {
         return null;
     }
 
-    public Car update(String id, Car updatedCar) {
-        for (int i = 0; i < carData.size(); i++) {
-            Car car = carData.get(i);
+    public void update(String id, Car updatedCar) {
+        for (Car car : carData) {
             if (car.getCarId().equals(id)) {
-                // Update the existing car with the new information
                 car.setCarName(updatedCar.getCarName());
                 car.setCarColor(updatedCar.getCarColor());
                 car.setCarQuantity(updatedCar.getCarQuantity());
-                return car;
+                break;
             }
         }
-        return null; // Handle the case where the car is not found
     }
 
     public void delete(String id) {
