@@ -69,3 +69,46 @@ Setelah melalui proses di atas, perubahan kode akan di-*merge* ke branch utama s
 
 </details>
 
+<details open>
+<summary><b>Tugas 3</b></summary>
+
+# Refleksi 3
+
+## Jelaskan prinsip apa yang diterapkan dalam project kali ini!
+- Single Responsibility Principle (SRP)
+
+Awalnya, `CarController` berada di tempat yang sama dengan `ProductController` yaitu pada `ProductController.java` dan menggunakan *extends* ke `ProductController`. Padahal, kedua *class* tersebut memiliki tugas yang berbeda. Maka dari itu, saya memisahkan keduanya dengan memindahkan `CarController` ke `CarController.java` sehingga tidak lagi menggunakan *extends*. Dengan begitu, kini setiap *class* hanya memiliki satu tanggung jawab sesuai dengan *Single Responsibility Principle*.
+
+- Open-Closed Principle (OCP)
+
+Struktur dari *controller* yang ada pada program memungkinkan adanya penambahan *route* atau *endpoint* tanpa perlu mengubah fungsionalitas yang telah ada, sehingga sistem bersifat fleksibel untuk pengembangan lebih lanjut tanpa memodifikasi kode yang telah berjalan dengan baik.
+
+- Interface Segregation Principle (ISP)
+
+Sistem dibagi menjadi beberapa *interface* yang spesifik sesuai tugasnya, sehingga saya memastikan bahwa sistem hanya menyediakan *method* yang benar-benar dibutuhkan dan relevan. Dengan demikian, kode akan menjadi lebih *maintainable*.
+
+- Dependency Inversion Principle (DIP)
+
+Pada mulanya, `carservice` memiliki ketergantungan langsung pada kelas yang sifatnya *concrete*. Menurut *Dependency Inversion Principle*, ketergantungan seharusnya diarahkan pada *interface* yang sifatnya abstrak, bukan langsung dengan implementasi *concrete*. Maka, saya mengubah `carservice` untuk bergantung pada *interface* `CarService`, daripada langsung pada `CarServiceImpl`.
+
+
+## Jelaskan keuntungan dalam menerapkan prinsip SOLID dalam project ini dengan contoh!
+
+Menerapkan prinsip SOLID dapat membantu dalam pengembangan perangkat lunak, khususnya dalam menyusun arsitektur perangkat lunak berorientasi objek yang baik, mudah beradaptasi terhadap perubahan, dan mudah dikelola ke depannya (*manageable*).
+- Dengan menerapkan SRP, kode menjadi lebih jelas dan mudah dipahami, khususnya bagi *programmer* lain. Hal ini dikarenakan sebuah *class* telah dikustomisasi untuk suatu tugas tertentu. Misalnya pada `CarController` yang hanya bertugas untuk mengurus *logic* terkait objek mobil, sehingga orang lain dapat memahami kode dengan baik tanpa bingung mengenai objek lainnya.
+- Dengan menerapkan OCP, kita dapat mengembangkan sistem tanpa mengubah kode lama. Hal ini dilakukan dengan menambah kode baru dengan bersifat terbuka terhadap ekstensi, namun tertutup pada modifikasi. Misalnya jika kita ingin menambahkan `PlaneController`, maka kita dapat membuat *class* baru tanpa mengubah kode `CarController` sehingga mengurangi risiko adanya *bug* pada kode yang sudah berjalan dengan baik.
+- Dengan menerapkan LSP, maka polimorfisme pada program akan cenderung aman karena *subclass* dapat menggantikan *superclass* tanpa mengubah perilaku sistem. Karena itu, tidak akan ada perilaku tak wajar yang muncul ketika kita melakukan perubahan pada *subclass*.
+- Dengan menerapkan ISP, kode akan menjadi lebih mudah dipelihara (*maintainable*) karena *method* yang diimplementasikan pada suatu *class* hanyalah *method* yang dibutuhkan saja. Misalnya pada `CarController`, ada *method-method* seperti *create*, *carList*, *edit*, dan *delete* yang berhubungan dengan objek mobil; dan tidak ada *method* seperti *eat* atau *sleep* yang tidak ada hubungannya dengan objek mobil.
+- Dengan menerapkan DIP, kode akan menjadi lebih modular dan fleksibel karena implementasinya bergantung pada abstraksi, bukan implementasi konkret. Misalnya pada `carservice` yang bergantung pada *interface* `CarService` dan bukan `CarServiceImpl`. Ini juga akan membuat pengujian khususnya *unit testing* menjadi lebih mudah karena dapat mengganti dependensi dengan `mock`.
+
+## Jelaskan kerugian dalam tidak menerapkan prinsip SOLID dalam project ini dengan contoh!
+
+Jika kita tidak menggunakan prinsip SOLID, maka kode akan menjadi sulit dipelihara, tidak fleksibel, rentan terhadap bug, dan bahkan sulit dikembangkan dalam jangka panjang.
+- Tanpa menerapkan SRP, kode akan menjadi sulit dibaca dan dipahami khususnya oleh *programmer* lain. Kode juga akan menjadi tidak relevan. Misalnya jika `CarController` juga menangani *logic* pemesanan makanan, maka orang lain akan kebingungan untuk memahami kode tersebut dan kesulitan jika ingin melakukan perubahan tanpa merusak kode yang telah berfungsi dengan baik.
+- Tanpa menerapkan OCP, maka penambahan kode baru misalnya untuk fitur baru dapat merusak kode lama yang telah berfungsi dengan baik. Contohnya jika kita ingin menambahkan `PlaneController` dan harus mengubah `CarController` juga untuk penyesuaian, kita mungkin saja tanpa sadar menambahkan *bug* pada bagian `CarController` sehingga mengganggu kestabilan sistem.
+- Tanpa menerapkan LSP, maka polimorfisme pada kode tidak akan berjalan dengan baik karena *subclass* bisa saja menyebabkan *bug* ketika bertugas menggantikan *superclass*. Hal ini dapat menyebabkan perilaku kode yang tidak sesuai keinginan sehingga mengharuskan banyak pengecekan terhadap `instanceof`.
+- Tanpa menerapkan ISP, suatu *class* bisa saja mengimplementasikan *method* yang tidak dibutuhkan atau tidak relevan. Contohnya jika `CarController` memiliki *method* *eat* atau *sleep* yang tidak ada hubungannya dengan objek mobil. Maka, hal tersebut akan membuat kode menjadi tidak efisien dan mempersulit kerja sistem.
+- Tanpa menerapkan DIP, kode akan langsung bergantung pada implementasi yang sifatnya konkret. Contohnya adalah jika `CarController` langsung bergantung pada `CarServiceImpl` daripada `CarService`. Hal ini akan menyebabkan ketergantungan yang tinggi antarkomponen sistem, sehingga menyebabkan pengujian kode khususnya *unit test* menjadi lebih sulit dan rumit.
+
+</details>
+
