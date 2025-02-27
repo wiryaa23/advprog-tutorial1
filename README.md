@@ -1,7 +1,9 @@
 **Nama**: Wirya Dharma Kurnia <br />
 **NPM**: 2306152115 <br />
-**Kelas**: ADPRO B
+**Kelas**: ADPRO B 
 
+# Link Deployment
+https://raspy-herminia-wiryaa23-5700da17.koyeb.app/
 
 <details>
 <summary><b>Tugas 1</b></summary>
@@ -40,9 +42,6 @@
 
 <details>
 <summary><b>Tugas 2</b></summary>
-
-## Link Deployment
-https://raspy-herminia-wiryaa23-5700da17.koyeb.app/
 
 ## Code quality issue(s) yang diperbaiki:
 - Unused parameter pada `ProductController.java`
