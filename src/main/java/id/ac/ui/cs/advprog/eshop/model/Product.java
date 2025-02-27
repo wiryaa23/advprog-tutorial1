@@ -11,7 +11,7 @@ public class Product {
     private int productQuantity;
 
     public Product() {
-        this.productId = UUID.randomUUID().toString(); // Generate ID unik
+        this.productId = UUID.randomUUID().toString();
     }
 }
 
