@@ -28,7 +28,7 @@ public class Payment {
     }
 
     public void setStatus(String status) {
-        String[] statusList = {"SUCCESS", "REJECTED"};
+        String[] statusList = {"SUCCESS", "REJECTED", "PENDING"};
         if (Arrays.stream(statusList).noneMatch(item -> (item.equals(status)))) {
             throw new IllegalArgumentException();
         }
