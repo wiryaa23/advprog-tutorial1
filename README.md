@@ -69,7 +69,7 @@ Setelah melalui proses di atas, perubahan kode akan di-*merge* ke branch utama s
 
 </details>
 
-<details open>
+<details>
 <summary><b>Tugas 3</b></summary>
 
 # Refleksi 3
@@ -109,6 +109,27 @@ Jika kita tidak menggunakan prinsip SOLID, maka kode akan menjadi sulit dipeliha
 - Tanpa menerapkan LSP, maka polimorfisme pada kode tidak akan berjalan dengan baik karena *subclass* bisa saja menyebabkan *bug* ketika bertugas menggantikan *superclass*. Hal ini dapat menyebabkan perilaku kode yang tidak sesuai keinginan sehingga mengharuskan banyak pengecekan terhadap `instanceof`.
 - Tanpa menerapkan ISP, suatu *class* bisa saja mengimplementasikan *method* yang tidak dibutuhkan atau tidak relevan. Contohnya jika `CarController` memiliki *method* *eat* atau *sleep* yang tidak ada hubungannya dengan objek mobil. Maka, hal tersebut akan membuat kode menjadi tidak efisien dan mempersulit kerja sistem.
 - Tanpa menerapkan DIP, kode akan langsung bergantung pada implementasi yang sifatnya konkret. Contohnya adalah jika `CarController` langsung bergantung pada `CarServiceImpl` daripada `CarService`. Hal ini akan menyebabkan ketergantungan yang tinggi antarkomponen sistem, sehingga menyebabkan pengujian kode khususnya *unit test* menjadi lebih sulit dan rumit.
+
+</details>
+
+
+<details open>
+<summary><b>Tugas 4</b></summary>
+
+# Refleksi 4
+
+## Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+Setelah mengerjakan modul 4 dan menerapkan alur Test-Driven Development (TDD), saya merasa cukup kelelahan karena harus mengikuti banyak sekali alur dan proses. Meski demikian, saya tetap merasa bahwa alur TDD ini bermanfaat untuk memastikan bahwa setiap bagian sistem diuji. Alur ini memang membutuhkan lebih banyak waktu di awal, mengingat kita harus menulis tes terlebih dahulu sebelum membuat kode dan implementasi sistem. Awalnya, saya bahkan merasa bingung tentang tes apa saja yang harus saya terapkan. Namun setelah menjalani seluruh proses, saya sadar bahwa dengan alur ini saya dapat menemukan kemungkinan *bug* dengan lebih mudah dan dapat memperbaikinya segera. Dengan begitu, saya tidak akan menghadapi *bug fixing* yang merepotkan dan besar di masa depan ketika sistem sudah di-*deploy*.
+
+## You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+*Test* yang saya buat dalam modul kali ini sudah cukup menerapkan prinsip F.I.R.S.T dengan baik.
+- *Fast*: *Test* kali ini berjalan dengan cepat karena merupakan *test* sederhana dengan algoritma yang tidak terlalu kompleks.
+- *Isolated*: Setiap *test* berjalan secara independen tanpa dipengaruhi atau memengaruhi *test* yang lain.
+- *Repeatable*: *Test* selalu memberikan hasil yang sama setiap kali dijalankan.
+- *Self-validating*: *Test* sudah menggunakan `assertions`, sehingga dapat langsung menentukan apakah hasilnya sesuai harapan atau tidak tanpa pemeriksaan manual.
+- *Thorough*: Meski *test* yang saya buat sudah mencakup sebagian besar bagian dari sistem, saya merasa masih ada beberapa bagian minor dari sistem yang belum teruji. Maka dari itu, ke depannya saya akan mencoba untuk lebih maksimal dalam membuat *test* agar dapat mencakup semua bagian dari sistem agar tidak terjadi *bug* di kemudian hari.
 
 </details>
 
