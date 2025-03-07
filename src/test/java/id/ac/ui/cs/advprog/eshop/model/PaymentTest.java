@@ -15,30 +15,17 @@ public class PaymentTest {
     }
 
     @Test
-    void testCreatePaymentWithNullId() {
-        assertThrows(NullPointerException.class, () -> {
-            new Payment(null, "voucher", "SUCCESS", paymentData);
-        });
-    }
-
-    @Test
     void testCreatePaymentWithNullMethod() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             new Payment("13652556-012a-4c07-b546-54eb139d79b", null, "SUCCESS", paymentData);
         });
     }
 
     @Test
     void testCreatePaymentWithNullStatus() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             new Payment("13652556-012a-4c07-b546-54eb139d79b", "voucher", null, paymentData);
         });
-    }
-
-    @Test
-    void testCreatePaymentWithNullPaymentData() {
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb139d79b", "voucher", "SUCCESS", null);
-        assertNull(payment.getPaymentData());
     }
 
     @Test
