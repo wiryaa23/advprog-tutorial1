@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Map;
@@ -105,12 +107,12 @@ public class PaymentTest {
     @Test
     void testCreateAllValid() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
-        Payment payment = new Payment(
-                "13652556-012a-4c07-b546-54eb139d79b",
-                "voucher",
-                "SUCCESS",
-                paymentData
-        );
+        Payment payment = Payment.builder()
+                .id("13652556-012a-4c07-b546-54eb139d79b")
+                .method(PaymentMethod.VOUCHER.getValue())
+                .status(PaymentStatus.SUCCESS.getValue())
+                .paymentData(paymentData).build();
+
         assertEquals("13652556-012a-4c07-b546-54eb139d79b", payment.getId());
         assertEquals("voucher", payment.getMethod());
         assertEquals("SUCCESS", payment.getStatus());
