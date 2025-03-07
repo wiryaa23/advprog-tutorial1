@@ -13,5 +13,22 @@ class PaymentByVoucher extends Payment{
     }
 
     @Override
-    public void setPaymentData(Map<String, String> paymentData) {}
+    public void setPaymentData(Map<String, String> paymentData) {
+        if (paymentData.isEmpty()) {
+            throw new IllegalArgumentException();
+        } else {
+            int numberCount = 0;
+            for (char c : paymentData.get("voucherCode").toCharArray()) {
+                if (Character.isDigit(c)) {
+                    numberCount++;
+                }
+            }
+            this.paymentData = paymentData;
+            if (paymentData.get("voucherCode").length() == 16 && paymentData.get("voucherCode").startsWith("ESHOP") && numberCount == 8) {
+                this.status = PaymentStatus.SUCCESS.getValue();
+            } else {
+                this.status = PaymentStatus.REJECTED.getValue();
+            }
+        }
+    }
 }
